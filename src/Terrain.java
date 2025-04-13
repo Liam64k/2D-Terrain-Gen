@@ -5,39 +5,37 @@ public class Terrain extends JPanel
 {
     private int _guiWidth;
     private int _guiHeight;
-    private int _resolution;
-    private int[] _vArray;
+    private int[] _YArray;
+    private static int _pointRadius = 10; // greater is less
 
     public Terrain(int guiWidth, int guiHeight, int resolution)
     {
         _guiWidth = guiWidth;
         _guiHeight = guiHeight;
-        _resolution = resolution;
 
-        _vArray = new int[_guiWidth/_resolution];
-        setVArray();
+        _YArray = new int[_guiWidth/resolution];
+        setYArray();
     }
 
-    public int[] getVArray()
+    public int[] getYArray()
     {
-        return _vArray;
+        return _YArray;
     }
 
-    public void setVArray()
+    public void setYArray()
     {
-        for (int i = 0; i < _vArray.length; i++)
+        for (int i = 0; i < _YArray.length; i++)
         {
-            _vArray[i] = 200;
+            _YArray[i] = 200;
         }
     }
 
     public void paintComponent(Graphics gui)
     {
         super.paintComponent(gui);
-        for (int i = 0; i < _vArray.length; i++)
+        for (int i = 0; i < _YArray.length; i++)
         {
-            gui.drawOval((i)*(_guiWidth/_resolution), 200, 5, 5);
-            gui.fillOval((i)*(_guiWidth/_resolution), 200, 5, 5);
+            gui.drawOval((i * _guiWidth) / (_YArray.length - 1) - _pointRadius, _YArray[i] - _pointRadius, _pointRadius * 2, _pointRadius * 2);
         }
     }
 }
