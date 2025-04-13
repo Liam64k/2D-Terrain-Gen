@@ -9,9 +9,6 @@ public class Main extends JFrame
     public static void main(String[] args)
     {
         new Main();
-
-        CreateTerrain t = new CreateTerrain(_guiWidth, _guiHeight, 20);
-        System.out.println(Arrays.toString(t.getVArray()));
     }
 
     public Main()
@@ -20,10 +17,11 @@ public class Main extends JFrame
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-    }
 
-    public void drawTerrain()
-    {
+        Terrain t = new Terrain(_guiWidth, _guiHeight, 20);
+        t.setBounds(0, 0, _guiWidth, _guiHeight);
+        add(t);
 
+        t.repaint();
     }
 }
