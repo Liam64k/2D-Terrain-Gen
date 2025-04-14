@@ -1,23 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 public class Terrain extends JPanel
 {
     private int _guiWidth;
     private int _guiHeight;
-    private int[] _YArray = {300, 250, 260, 230, 180, 190, 180, 340, 260, 220, 240};
+    private int[] _YArray;
     private static int _pointRadius = 3; // greater is less
+    private static BufferedImage _perlinImage;
 
     public Terrain(int guiWidth, int guiHeight, int resolution)
     {
         _guiWidth = guiWidth;
         _guiHeight = guiHeight;
 
-        /*
         _YArray = new int[_guiWidth/resolution];
+
+        try {
+            _perlinImage = ImageIO.read(new File("src/Perlin_noise_example.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         setYArray();
 
-         */
     }
 
     public int[] getYArray()
@@ -27,10 +36,14 @@ public class Terrain extends JPanel
 
     public void setYArray()
     {
+        int imgHeight = _perlinImage.getHeight();
+        int imgWidth = _perlinImage.getWidth();
 
         for (int i = 0; i < _YArray.length; i++)
         {
-            _YArray[i] = 200;
+            int x = (i * imgWidth) / _YArray.length;
+            int gray = _perlinImage.getRGB(x, imgHeight / 3) & 0xFF;
+            _YArray[i] = (_guiHeight * gray) / 255;
         }
     }
 
