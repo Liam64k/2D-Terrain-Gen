@@ -65,13 +65,30 @@ public class Terrain extends JPanel implements Runnable
     {
         super.paintComponent(gui);
 
-        /*
+
+        for (int i = 1; i <_YArray.length; i++)
+        {
+            Color brown = new Color(150, 75, 0); // Color white
+            Color green = new Color(0, 255, 0); // Color white
+
+            int x = ((i-1) * _guiWidth) / (_YArray.length - 1);
+            int x2 = i * _guiWidth / (_YArray.length - 1);
+
+            gui.setColor(brown);
+            gui.fillRect(x, _YArray[i], x2-x, _guiHeight - _YArray[i]);
+
+            gui.setColor(green);
+            gui.fillRect(x, _YArray[i], x2-x, 30);
+        }
+
+
+
+/*
         for (int i = 0; i < _YArray.length; i++) // draw vertices
         {
             int x1 = (i * _guiWidth) / (_YArray.length - 1);
             gui.drawOval(x1 - _pointRadius, _YArray[i] - _pointRadius, _pointRadius * 2, _pointRadius * 2);
         }
-        */
 
         for (int i = 1; i <_YArray.length; i++) // draw lines
         {
@@ -80,5 +97,8 @@ public class Terrain extends JPanel implements Runnable
 
             gui.drawLine(x1, _YArray[i-1], x2, _YArray[i]);
         }
+*/
+
+
     }
 }
