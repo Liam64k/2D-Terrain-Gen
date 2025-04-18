@@ -21,7 +21,6 @@ public class Terrain extends JPanel implements Runnable
 
         _perlinImage = ImageIO.read(new File("src/Perlin_noise_example.png"));
         setYArray(0);
-
     }
 
     public void run()
@@ -65,8 +64,7 @@ public class Terrain extends JPanel implements Runnable
     {
         super.paintComponent(gui);
 
-
-        for (int i = 1; i <_YArray.length; i++)
+        for (int i = 1; i <_YArray.length; i++) // draw rectangles
         {
             Color brown = new Color(150, 75, 0); // Color white
             Color green = new Color(0, 255, 0); // Color white
@@ -77,16 +75,40 @@ public class Terrain extends JPanel implements Runnable
             gui.setColor(brown);
             gui.fillRect(x, _YArray[i], x2-x, _guiHeight - _YArray[i]);
 
-            gui.setColor(green);
-            gui.fillRect(x, _YArray[i], x2-x, 30);
+
+            // Cliffs & Grass & Mountain tops
+            if (_YArray[i-1] - _YArray[i] > 20) // Cliffs
+            {
+                gui.setColor(Color.gray);
+                gui.fillRect(x, _YArray[i], x2-x, _YArray[i-1] - _YArray[i]);
+            }
+            else if (_YArray[i-1] - _YArray[i] < -20) // Cliffs
+            {
+                gui.setColor(Color.gray);
+                gui.fillRect(x, _YArray[i], x2-x, _YArray[i] - _YArray[i-1]);
+            }
+            else // Mountain tops
+            {
+                if (_YArray[i] < 150)
+                {
+                    gui.setColor(Color.lightGray);
+                    gui.fillRect(x, _YArray[i], x2-x, 10);
+                }
+                else
+                {
+                    gui.setColor(green);
+                    gui.fillRect(x, _YArray[i], x2-x, 15);
+                }
+            }
+
         }
 
-
-
-/*
+        /*
         for (int i = 0; i < _YArray.length; i++) // draw vertices
         {
             int x1 = (i * _guiWidth) / (_YArray.length - 1);
+
+            gui.setColor(Color.black);
             gui.drawOval(x1 - _pointRadius, _YArray[i] - _pointRadius, _pointRadius * 2, _pointRadius * 2);
         }
 
@@ -95,10 +117,9 @@ public class Terrain extends JPanel implements Runnable
             int x1 = (i - 1) * _guiWidth / (_YArray.length - 1);
             int x2 = i * _guiWidth / (_YArray.length - 1);
 
+            gui.setColor(Color.black);
             gui.drawLine(x1, _YArray[i-1], x2, _YArray[i]);
         }
-*/
-
-
+        */
     }
 }

@@ -18,8 +18,7 @@ public class Main extends JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        Terrain t = new Terrain(_guiWidth, _guiHeight, 10);
-        System.out.println(Arrays.toString(t.getYArray()));
+        Terrain t = new Terrain(_guiWidth, _guiHeight, 8);
         t.setBounds(0, 0, _guiWidth, _guiHeight);
         add(t);
 
